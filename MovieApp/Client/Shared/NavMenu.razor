@@ -1,0 +1,24 @@
+﻿<nav>
+    <a href="#">Movie App</a>
+    <button @onclick="ToggleNavMenu">
+        <span></span>
+    </button>
+    <div class="@NavMenuCssClass">
+        @*<ul>
+            <li>
+                <NavLink href="/">Watch Movies</NavLink>
+            </li>
+        </ul>*@
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

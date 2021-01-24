@@ -1,0 +1,399 @@
+﻿/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* Set every element's box-sizing to border-box */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+:root {
+    font-size: 62.5%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(241, 241, 241, 0);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888888;
+}
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555555;
+    }
+
+#content {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+button {
+    width: 2.7rem;
+    height: 2.7rem;
+    background-color: Transparent;
+    border: 0.1rem solid white;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+#main-nav {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4B367C;
+    height: 5.1rem;
+}
+
+#main-nav-left {
+    display: flex;
+    align-items: center;
+}
+
+    #main-nav-left button,
+    #main-nav-left a,
+    #main-nav-left input {
+        margin: 0 0.8rem;
+    }
+
+    #main-nav-left a {
+        font-size: 1.4rem;
+        color: #B19DD8;
+        text-decoration: none;
+    }
+
+    #main-nav-left input {
+        background-color: #3C2B63;
+        border: 0.1rem solid #6441A4;
+        border-radius: 0.4rem;
+        height: 2.7rem;
+    }
+
+#main-nav-right {
+    display: flex;
+    align-items: center;
+}
+
+    #main-nav-right button {
+        margin-right: 0.8rem;
+    }
+
+        #main-nav-right button#get-bits-button {
+            width: 7rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+#website {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+}
+
+#left-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #19171C;
+    width: 5rem;
+    border-right: 1px solid #252328;
+    overflow-y: hidden;
+    position: absolute;
+    top: 5.1rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+    #left-nav:hover {
+        overflow-y: overlay;
+    }
+
+    #left-nav button {
+        margin: 0.7rem 0;
+        flex-shrink: 0;
+    }
+
+#middle {
+    position: absolute;
+    background-color: #0F0E11;
+    left: 5rem;
+    top: 5.1rem;
+    right: 33.9rem;
+    bottom: 0;
+}
+
+    #middle #middle-top-nav {
+        width: 100%;
+        height: 5.1rem;
+        background-color: #19171C;
+        border-bottom: 0.1rem solid #252328;
+    }
+
+    #middle #middle-container {
+        margin-top: 5.1rem;
+        position: absolute;
+        background-color: #0F0E11;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: hidden;
+    }
+
+        #middle #middle-container:hover {
+            overflow-y: auto;
+        }
+
+        #middle #middle-container #middle-inner-container {
+            margin: 2rem 2rem 2rem;
+        }
+
+            #middle #middle-container #middle-inner-container #video {
+                /*background-color: black;*/
+                width: 100%;
+                height: 70%;             
+            }
+
+            #middle #middle-container #middle-inner-container #video-info {
+                height: 15rem;
+                background-color: #19171C;
+                border: 0.1rem solid #252328;
+                border-bottom-left-radius: 0.4rem;
+                border-bottom-right-radius: 0.4rem;
+            }
+
+#chat {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #0F0E11;
+    border-left: 0.1rem solid #252328;
+    width: 33.9rem;
+    top: 5.1rem;
+    right: 0;
+    bottom: 0;
+}
+
+    #chat #chat-top {
+        height: 5.1rem;
+        border-bottom: 0.1rem solid #252328;
+        background-color: #19171C;
+    }
+
+    #chat #chat-view {
+        position: absolute;
+        top: 5.1rem;
+        bottom: 13rem;
+        overflow-y: hidden;
+        background-color: #0F0E11;
+        flex-grow: 1;
+        padding: 1rem 2rem 0;
+    }
+
+        #chat #chat-view:hover {
+            overflow-y: overlay;
+        }
+
+        #chat #chat-view p {
+            font-size: 1.3rem;
+            color: #898395;
+            margin-bottom: 1.3rem;
+        }
+
+            #chat #chat-view p .chat-username {
+                font-weight: bold;
+                color: #c029c0;
+            }
+
+    #chat #chat-bottom {
+        position: absolute;
+        bottom: 0;
+        background-color: #0F0E11;
+        height: 13rem;
+        padding: 0 2rem 1rem;
+    }
+
+        #chat #chat-bottom p {
+            padding: 1rem 0 1rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #898395;
+            border-top: 0.1rem solid #19171C;
+        }
+
+        #chat #chat-bottom textarea {
+            width: 29rem;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            background-color: #0F0E11;
+            border: 0.1rem solid #3C2B63;
+            border-radius: 0.4rem;
+            caret-color: white;
+            color: white;
+            resize: none;
+            outline: none !important;
+        }
+
+            #chat #chat-bottom textarea:focus {
+                border: 0.1rem solid #6441A4;
+            }
+
+        #chat #chat-bottom #chat-bottom-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            #chat #chat-bottom #chat-bottom-buttons #chat-bottom-buttons-left-row button {
+                margin-top: 1rem;
+            }
+
+            #chat #chat-bottom #chat-bottom-buttons #chat-bottom-buttons-right-row button {
+                background-color: #19171C;
+                border: 0.1rem solid #322e38;
+                width: 3.8rem;
+                font-size: 1.1rem;
+                margin-top: 1rem;
+                color: grey;
+            }

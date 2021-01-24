@@ -1,0 +1,61 @@
+﻿@page "/"
+@using Microsoft.JSInterop
+@using MovieApp.Shared.Services
+@using MovieApp.Shared.Models.MovieData
+@inject TmdbApi TmdbApi
+
+<div id="middle">
+    <div id="middle-top-nav"></div>
+    <div id="middle-container">
+        <div id="middle-inner-container">
+            <div id="video">
+                <div id="kin-x" data-height="640" data-title="@title"></div></div>
+            <div id="video-info">
+                @* TODO: add movie info *@
+                @if(movieDetail != null)
+                {
+                    <h1>@movieDetail.OriginalTitle</h1>
+                    <h1>@movieDetail.Overview</h1>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chat">
+    <div id="chat-top"></div>
+    <div id="chat-view">
+
+    </div>
+    <div id="chat-bottom">
+        
+        <input @bind="title" @bind:event="oninput"/>
+        <textarea rows="2"></textarea>
+        <div id="chat-bottom-buttons">
+            <div id="chat-bottom-buttons-left-row">
+                <button></button>
+                <button></button>
+            </div>
+            <div id="chat-bottom-button-right-row">
+                <button  @onclick="(() => RunMovie(title))">Chat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code{
+
+    [Inject]
+    public IJSRuntime Js { get; set; }
+    private MovieDataDetail movieDetail = null;
+
+    // example: Joker (2019)
+    string title;
+
+    private async Task RunMovie(string title)
+    {
+        await Js.InvokeVoidAsync("kinX");
+        movieDetail = await TmdbApi.GetAllMovieInfo(title);
+    }
+
+}
