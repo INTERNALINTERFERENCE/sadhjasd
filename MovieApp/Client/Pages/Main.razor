@@ -2,60 +2,126 @@
 @using Microsoft.JSInterop
 @using MovieApp.Shared.Services
 @using MovieApp.Shared.Models.MovieData
-@inject TmdbApi TmdbApi
 
-<div id="middle">
-    <div id="middle-top-nav"></div>
-    <div id="middle-container">
-        <div id="middle-inner-container">
-            <div id="video">
-                <div id="kin-x" data-height="640" data-title="@title"></div></div>
-            <div id="video-info">
-                @* TODO: add movie info *@
-                @if(movieDetail != null)
-                {
-                    <h1>@movieDetail.OriginalTitle</h1>
-                    <h1>@movieDetail.Overview</h1>
-                }
+<body id="page-top">
+
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Home</span>
+                </a>
+
+                <input type="text" class="form-control" placeholder="Search for..." @oninput="@OnSearch">
+                <div style="position: center; right:0;top:0;width:auto;height:510px;z-index:10">
+                    @foreach (var item in movies)
+                    {
+                        <span @onclick="_ => SelectMovie(item)" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;display: flex; color:black">@item.Title</span>
+                    }
+                </div>
+            </li>
+
+
+            <Categories />
+
+        </ul>
+        <div id="content-wrapper">
+            <div class="container-fluid pb-0">
+                <div class="video-block section-padding">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="single-video-left">
+                                @BuildPlayer()
+                                <div class="single-video-title box mb-3">
+                                    <h2><a href="#">@Movie.OriginalTitle</a></h2>
+                                    <p class="mb-0"><i class="fas fa-eye"></i>@Movie.Popularity</p>
+                                </div>
+
+                                <div class="single-video-info-content box mb-3">
+                                    <h6>Cast:</h6>
+                                    <p>Nathan Drake , Victor Sullivan , Sam Drake , Elena Fisher</p>
+                                    <h6>Genres :</h6>
+                                    <p>
+                                        @foreach (var item in movies)
+                                        {
+                                            <span>@item.Genres</span>
+                                        }
+                                    </p>
+                                    <h6>About :</h6>
+                                    <p>@Movie.Overview</p>
+                                    <h6>Tags :</h6>
+                                    <p class="tags mb-0">
+                                        @foreach (var item in movies)
+                                        {
+                                            <span><a>@item.Keywords</a></span>
+                                        }                                       
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @* TODO: CHAT *@
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
 
-<div id="chat">
-    <div id="chat-top"></div>
-    <div id="chat-view">
 
-    </div>
-    <div id="chat-bottom">
-        
-        <input @bind="title" @bind:event="oninput"/>
-        <textarea rows="2"></textarea>
-        <div id="chat-bottom-buttons">
-            <div id="chat-bottom-buttons-left-row">
-                <button></button>
-                <button></button>
-            </div>
-            <div id="chat-bottom-button-right-row">
-                <button  @onclick="(() => RunMovie(title))">Chat</button>
-            </div>
-        </div>
-    </div>
-</div>
+@code
+{
+    [Inject] public IJSRuntime Js { get; set; }   
 
-@code{
+    [Parameter] public MovieDataDetail Movie { get; set; }
 
-    [Inject]
-    public IJSRuntime Js { get; set; }
-    private MovieDataDetail movieDetail = null;
+    [Inject] public TmdbApi TmdbApi { get; set; }
 
-    // example: Joker (2019)
-    string title;
+    IEnumerable<MovieDataDetail> movies = Array.Empty<MovieDataDetail>();
 
-    private async Task RunMovie(string title)
+
+
+    async Task OnSearch(ChangeEventArgs e)
     {
-        await Js.InvokeVoidAsync("kinX");
-        movieDetail = await TmdbApi.GetAllMovieInfo(title);
+        var text = e.Value?.ToString();
+        if (text is not null && text.Length > 3)
+        {
+            movies = await TmdbApi.Search(text);
+            await InvokeAsync(StateHasChanged);
+        }
     }
+
+    void SelectMovie(MovieDataDetail movie)
+    {
+        Movie = movie;
+        StateHasChanged();
+    }
+
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    => Js.InvokeVoidAsync("kinX").AsTask();
+
+
+
+    int iterator;
+    public RenderFragment BuildPlayer() => builder =>
+    {
+        unchecked
+        {
+            builder.OpenElement(iterator++, "div");
+            builder.AddAttribute(iterator++, "Id", "video");
+            builder.OpenElement(iterator++, "div");
+            builder.AddAttribute(iterator++, "Id", "kin-x");
+            builder.AddAttribute(iterator++, "data-height", "640");
+            builder.AddAttribute(iterator++, "data-title", Movie?.Title);
+            builder.CloseElement();
+            builder.CloseElement();
+        }
+    };
+
 
 }

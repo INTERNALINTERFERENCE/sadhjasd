@@ -12,21 +12,45 @@ namespace MovieApp.Shared.Services
     {
         //TODO: use config
         private TMDbClient _client = new TMDbClient("dd47404357d7dfca4f753c17e666f789");
+        public int id;
 
         public async Task<MovieDataDetail> GetAllMovieInfo(string title, string lang = "ru")
         {
             var results = await _client.SearchMovieAsync(title, lang);
-            var data = results.Results.FirstOrDefault(p => p.Title == title);
+            var id = results.Results.FirstOrDefault(p => p.Title == title).Id;
+            var movieData = await _client.GetMovieAsync(id, TMDbLib.Objects.Movies.MovieMethods.ExternalIds | TMDbLib.Objects.Movies.MovieMethods.Videos | TMDbLib.Objects.Movies.MovieMethods.Credits | TMDbLib.Objects.Movies.MovieMethods.Keywords);
 
             return new MovieDataDetail
             {
-                Id = data.Id,
-                Title = data.Title,
-                OriginalTitle = data.OriginalTitle,
-                Overview = data.Overview,
-                ReleaseDate = data.ReleaseDate,
-                Popularity = data.Popularity,                
+                ImdbId = movieData.ImdbId,
+                Title = movieData.Title,
+                OriginalTitle = movieData.OriginalTitle,
+                Overview = movieData.Overview,
+                ReleaseDate = movieData.ReleaseDate,
+                Popularity = movieData.Popularity,
+                Genres = movieData.Genres,
+                Keywords = movieData.Keywords
+
+
+                //ImdId = movieData.Id,
+                //Title = movieData.Title,
+                //OriginalTitle = movieData.OriginalTitle,
+                //Overview = movieData.Overview,
+                //ReleaseDate = movieData.ReleaseDate,
+                //Popularity = movieData.Popularity,
             };
         }
+
+        public Task<IEnumerable<MovieDataDetail>> Search(string title)
+            => _client.GetMovieAsync(id, TMDbLib.Objects.Movies.MovieMethods.ExternalIds | TMDbLib.Objects.Movies.MovieMethods.Videos | TMDbLib.Objects.Movies.MovieMethods.Credits | TMDbLib.Objects.Movies.MovieMethods.Keywords)
+            .ContinueWith(async res => (await res).Select(x => new MovieDataDetail
+            {
+                Title = x.Title,
+                OriginalTitle = x.OriginalTitle,
+                Overview = x.Overview,
+                ReleaseDate = x.ReleaseDate,
+                Popularity = x.Popularity,
+            }))
+            .Unwrap();           
     }
 }

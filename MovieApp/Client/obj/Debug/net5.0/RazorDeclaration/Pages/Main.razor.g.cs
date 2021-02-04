@@ -105,26 +105,61 @@ using MovieApp.Shared.Models.MovieData;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 46 "C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\Pages\Main.razor"
-      
+#line 77 "C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\Pages\Main.razor"
+ 
+    [Inject] public IJSRuntime Js { get; set; }   
 
-    [Inject]
-    public IJSRuntime Js { get; set; }
-    private MovieDataDetail movieDetail = null;
+    [Parameter] public MovieDataDetail Movie { get; set; }
 
-    string title;
+    [Inject] public TmdbApi TmdbApi { get; set; }
 
-    private async Task RunMovie(string title)
+    IEnumerable<MovieDataDetail> movies = Array.Empty<MovieDataDetail>();
+
+
+
+    async Task OnSearch(ChangeEventArgs e)
     {
-        await Js.InvokeVoidAsync("kinX");
-        movieDetail = await TmdbApi.GetAllMovieInfo(title);
+        var text = e.Value?.ToString();
+        if (text is not null && text.Length > 3)
+        {
+            movies = await TmdbApi.Search(text);
+            await InvokeAsync(StateHasChanged);
+        }
     }
+
+    void SelectMovie(MovieDataDetail movie)
+    {
+        Movie = movie;
+        StateHasChanged();
+    }
+
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    => Js.InvokeVoidAsync("kinX").AsTask();
+
+
+
+    int iterator;
+    public RenderFragment BuildPlayer() => builder =>
+    {
+        unchecked
+        {
+            builder.OpenElement(iterator++, "div");
+            builder.AddAttribute(iterator++, "Id", "video");
+            builder.OpenElement(iterator++, "div");
+            builder.AddAttribute(iterator++, "Id", "kin-x");
+            builder.AddAttribute(iterator++, "data-height", "640");
+            builder.AddAttribute(iterator++, "data-title", Movie?.Title);
+            builder.CloseElement();
+            builder.CloseElement();
+        }
+    };
+
 
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private TmdbApi TmdbApi { get; set; }
     }
 }
 #pragma warning restore 1591

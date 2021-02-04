@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace MovieApp.Client.Shared
+namespace MovieApp.Client.Pages
 {
     #line hidden
     using System;
@@ -82,58 +82,13 @@ using MovieApp.Client.Shared;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 1 "C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\Shared\NavMenu.razor"
-using MovieApp.Shared.Services;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\Shared\NavMenu.razor"
-using MovieApp.Shared.Models.MovieData;
-
-#line default
-#line hidden
-#nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Categories : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 6 "C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\Shared\NavMenu.razor"
-       
-
-    [Inject] public TmdbApi TmdbApi { get; set; }
-
-    [Parameter] public MovieDataDetail Movie { get; set; }
-
-    IEnumerable<MovieDataDetail> movies = Array.Empty<MovieDataDetail>();
-
-
-
-    async Task OnSearch(ChangeEventArgs e)
-    {
-        var text = e.Value?.ToString();
-        if (text is not null && text.Length > 3)
-        {
-            movies = await TmdbApi.Search(text);
-            await InvokeAsync(StateHasChanged);
-        }
-    }
-
-    void SelectMovie(MovieDataDetail movie)
-    {
-        Movie = movie;
-        StateHasChanged();
-    }
-
-#line default
-#line hidden
-#nullable disable
     }
 }
 #pragma warning restore 1591

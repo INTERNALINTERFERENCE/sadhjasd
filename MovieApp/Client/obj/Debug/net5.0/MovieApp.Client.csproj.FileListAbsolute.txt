@@ -633,3 +633,5 @@ C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\bin\Debug\net5.0\wwwroot\_framew
 C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\bin\Debug\net5.0\wwwroot\_framework\TMDbLib.dll
 C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\obj\Debug\net5.0\build-gz\Ge1f2N7S.gz
 C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\obj\Debug\net5.0\build-gz\gi+UPpdZ.gz
+C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Categories.razor.g.cs
+C:\Users\Anton\Desktop\MovieApp\MovieApp\Client\obj\Debug\net5.0\Razor\Pages\Categories.razor.g.cs
